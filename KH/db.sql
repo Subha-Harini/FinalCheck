@@ -24,18 +24,52 @@ CREATE TABLE IF NOT EXISTS `stock_market`.`user` (
   PRIMARY KEY (`us_id`))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `stock_market`.`sector` (
+  `se_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `se_name` VARCHAR(30) NULL DEFAULT NULL,
+  `se_brief` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`se_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
+
+-- -----------------------------------------------------
+-- Table `stock_market`.`company`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `stock_market`.`company` (
-  `co_id` INT NOT NULL AUTO_INCREMENT,
-  `co_name` VARCHAR(50),
-  `co_turnover` BIGINT ,
-  `co_ceo` VARCHAR(20) ,
-  `co_board_of_directors` VARCHAR(100) ,
-  `co_sector` VARCHAR(50),
-  `co_breif_writeup` VARCHAR(100),
-  `co_stock_code` INT(11),
-  PRIMARY KEY (`us_id`))
-ENGINE = InnoDB;
+  `co_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `co_name` VARCHAR(50) NULL DEFAULT NULL,
+  `co_turnover` BIGINT(20) NULL DEFAULT NULL,
+  `co_ceo` VARCHAR(20) NULL DEFAULT NULL,
+  `co_board_of_directors` VARCHAR(100) NULL DEFAULT NULL,
+  `co_stock_exchange` TINYINT(1) NULL DEFAULT NULL,
+  `co_sector` VARCHAR(50) NULL DEFAULT NULL,
+  `co_breif_writeup` VARCHAR(100) NULL DEFAULT NULL,
+  `co_stock_code` INT(11) NULL DEFAULT NULL,
+  `co_se_id` INT(11) NOT NULL,
+  PRIMARY KEY (`co_id`, `co_se_id`),
+  INDEX `fk_company_sector1_idx` (`co_se_id` ASC),
+  CONSTRAINT `fk_company_sector1`
+    FOREIGN KEY (`co_se_id`)
+    REFERENCES `stock_market`.`sector` (`se_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+select * from company;
+-- -----------------------------------------------------
+-- Table `stock_market`.`stock_exchange`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `stock_market`.`stock_exchange` (
+  `st_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `st_stock_exchange` VARCHAR(10) NULL DEFAULT NULL,
+  `st_brief` VARCHAR(100) NULL DEFAULT NULL,
+  `st_contact_address` VARCHAR(100) NULL DEFAULT NULL,
+  `st_remarks` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`st_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `stock_market`.`stock_price` (
   `sp_id` INT NOT NULL AUTO_INCREMENT,
@@ -56,24 +90,6 @@ CREATE TABLE IF NOT EXISTS `stock_market`.`ipo_details` (
   `ip_total_shares` INT,
   `ip_open_date_time` DATETIME,
    `ip_remarks` VARCHAR(100),
-  PRIMARY KEY (`ip_id`))
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `stock_market`.`sector` (
-  `se_id` INT NOT NULL AUTO_INCREMENT,
-  `se_name` VARCHAR(30),
-  `se_brief` VARCHAR(100),
-  PRIMARY KEY (`se_id`))
-ENGINE = InnoDB;
-
-
-
-CREATE TABLE IF NOT EXISTS `stock_market`.`stock_exchange` (
-  `st_id` INT NOT NULL AUTO_INCREMENT,
-  `st_stock_exchange` VARCHAR(10),
-  `st_brief` VARCHAR(100),
-  `st_contact_address` VARCHAR(100),
-  `st_remarks` VARCHAR(100),
   PRIMARY KEY (`ip_id`))
 ENGINE = InnoDB;
 

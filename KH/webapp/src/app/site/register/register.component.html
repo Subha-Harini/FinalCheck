@@ -83,7 +83,8 @@
                 Password
                 <span class="text-danger"> * </span>
               </label>
-              <input type="password" 
+              <input #password
+                      type="password" 
                      [ngClass]="[(signupForm.controls.password.dirty || signupForm.controls.password.touched) && signupForm.controls.password.valid ? 'is-valid' : '',
                                  (signupForm.controls.password.dirty || signupForm.controls.password.touched) && signupForm.controls.password.invalid ? 'is-invalid' : '', 
                                  (signupForm.controls.password.valid || signupForm.controls.password.invalid) ? 'form-control' : '']"  
@@ -99,7 +100,29 @@
           </div>
          
         </div>
-
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                  <label for="confirmpassword">
+                    Confirm Password
+                    <span class="text-danger"> * </span>
+                  </label>
+                  <input  #confirmpassword
+                          type="password" 
+                         [ngClass]="[(signupForm.controls.confirmpassword.dirty || signupForm.controls.confirmpassword.touched) && signupForm.controls.confirmpassword.valid ? 'is-valid' : '',
+                                     (signupForm.controls.confirmpassword.dirty || signupForm.controls.confirmpassword.touched) && signupForm.controls.confirmpassword.invalid ? 'is-invalid' : '', 
+                                     (signupForm.controls.confirmpassword.valid || signupForm.controls.confirmpassword.invalid) ? 'form-control' : '']"  
+                         id="confirmpassword" 
+                         name="confirmpassword" 
+                         formControlName="confirmpassword">
+                  <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                    <span class="text-danger small"
+                          *ngIf="password.value != confirmpassword.value && signupForm.get('password').touched && signupForm.get('confirmpassword').untouched">
+                                Password does not match
+                    </span></div>
+                </div>
+              </div>
+        </div>
       
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 mb-5">

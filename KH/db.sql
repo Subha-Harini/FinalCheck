@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `stock_market`.`company` (
   `cp_listed` BOOLEAN DEFAULT FALSE,
   `cp_se_id` INT NOT NULL,
   `cp_brief` VARCHAR(600) NOT NULL,
+  `cp_logo` VARCHAR(600) NOT NULL,
   PRIMARY KEY (`cp_id`),
   INDEX `cp_se_fk_idx` (`cp_se_id` ASC),
   CONSTRAINT `cp_se_fk`
@@ -141,12 +142,21 @@ CREATE TABLE IF NOT EXISTS `stock_market`.`company_stock` (
 select * from user;
 select * from stock_price;
 select * from company;
-
+select * from stock_exchange;
+select * from company_stock;
 
 
 insert into board_of_directors (bd_cp_id,bd_name) values (1,"Harini"),(2,"John");
 
-insert into company (cp_name,cp_turnover,cp_ceo,cp_listed,cp_se_id,cp_brief) values ("Reliance",123456,"Mukesh Ambani",true,1,"Good");
+ ("Reliance",123456,"Mukesh Ambani",true,1,"Good","https://logosvector.net/wp-content/uploads/2013/05/reliance-industries-vector-logo.png");
+("Tata",218927,"Guenter Butschek",true,1,"Good","https://coacharya.com/wp-content/uploads/2017/09/tata-logo.png");
+  ("State Bank",218927,"Guenter Butschek",true,1,"Good","https://qph.fs.quoracdn.net/main-qimg-2569681f342dd6c9319e2cab8920dbd2.webp");
+  ("Indian Bank",218927,"Guenter Butschek",true,1,"Good","https://logosvector.net/wp-content/uploads/2014/01/indian-bank-1907-vector-logo.png");
+  ("Apollo",218927,"Guenter Butschek",true,1,"Good","https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Apollo_Hospitals_Svg_Logo.svg/1200px-Apollo_Hospitals_Svg_Logo.svg.png");
+   ("AstraZenaca" ,"uenter Butschek",true,1,"Good","https://botw-pd.s3.amazonaws.com/styles/logo-thumbnail/s3/0002/9083/brand.gif?itok=kp_3qOII");
+  ("sun pharmacheticals",218927,"Guenter Butschek",true,1,"Good","https://upload.wikimedia.org/wikipedia/commons/2/26/Sun_Pharma_Logo.png");
+  ("Thyrocare",123456,"Mukesh Ambani",true,1,"Good","https://botw-pd.s3.amazonaws.com/styles/logo-thumbnail/s3/082016/untitled-1_206.jpg?itok=qwvpSggW");
+
 
 insert into sector (se_sector_name,se_brief) values (1,"Iron and Steel"),(2,"Pharmaceuticals"),(3,"HealthCare");
 insert into sector (se_sector_name,se_brief) values (4, "Banking");
@@ -157,6 +167,6 @@ insert into company_stock (cs_cp_id,cs_ex_id) values (1,1),
 insert into stock_exchange (ex_stock_exchange,ex_brief,ex_address,ex_remarks) values ("BSE","Bombay Stock Exchange","Dalal Street, Mumbai","Good Service"),
 																					 ("NSE","National Stock Exchange","Delhi","Nil");
 					
-select cp_id,cp_name,cp_turnover,cp_ceo,cp_listed,cp_se_id,cp_brief from company inner join company_stock on company.cp_id = company_stock.cs_cp_id  inner join stock_exchange on company_stock.cs_ex_id = stock_exchange.ex_id where stock_exchange.ex_stock_exchange = "BSE";
+select cp_id,cp_name,cp_turnover,cp_ceo,cp_listed,cp_se_id,cp_brief from company inner join company_stock on company.cp_id = company_stock.cs_cp_id  inner join stock_exchange on company_stock.cs_ex_id = stock_exchange.ex_id where stock_exchange.ex_stock_exchange = "NSE";
 
 select bd_id from user inner join blood_donation on user.us_id = blood_donation.bd_us_id inner join slot_booking on blood_donation.bd_id = slot_booking.sb_bd_id where (us_name = "user" and slot_booking.sb_date-CURDATE() < 90);

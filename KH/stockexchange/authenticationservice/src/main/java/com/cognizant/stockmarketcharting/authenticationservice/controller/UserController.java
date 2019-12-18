@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cognizant.stockmarketcharting.authenticationservice.AuthenticationserviceApplication;
 import com.cognizant.stockmarketcharting.authenticationservice.exception.UserAlreadyExistsException;
 import com.cognizant.stockmarketcharting.authenticationservice.model.User;
+import com.cognizant.stockmarketcharting.authenticationservice.service.ConfirmationService;
+import com.cognizant.stockmarketcharting.authenticationservice.service.EmailService;
 import com.cognizant.stockmarketcharting.authenticationservice.service.UserService;
 
 
@@ -35,12 +37,20 @@ public class UserController {
 	  @Autowired
 	  PasswordEncoder passwordEncoder;
 	  
+	  @Autowired
+	  ConfirmationService confirmationService;
+	  
+	  @Autowired
+	  EmailService emailService;
+	  
 	
 	  @PostMapping 
 	  public void signUp(@RequestBody @Valid User user) throws UserAlreadyExistsException {
 		  LOGGER.info("Start");
 		  user.setPassword(passwordEncoder.encode(user.getPassword()));
 		  userService.signUp(user);
+		  String token = confirmationService.setTokenForConfirmation(user.getName());
+			emailService.send("ctstestmail10@gmail.com", user.getEmail(), "Confirmation", "http://localhost:8083/authentication-service/stockmarketcharting/users/confirmation/"+token);
 		  LOGGER.info("End");
 	 }
 	  
@@ -49,16 +59,26 @@ public class UserController {
 		 return userService.getUser();
 	  }
 	  
+	  @GetMapping("/{name}")
+	  public User getUserByName(@PathVariable String name) {
+		 return userService.getUserByName(name);
+	  }
 	    
 	  @PutMapping("/new-password")
 		public void updatePassword(@RequestBody @Valid User user)  {
 			LOGGER.info("Start");
 			String password = user.getPassword();
-			user.setStatus("A");
 			user.setPassword(passwordEncoder.encode(password));
 			System.out.println(user);
 			userService.updateUser(user);
 			LOGGER.info("End");
+		}
+	  
+
+		@GetMapping("/confirmation/{token}")
+		public String confirmation(@PathVariable String token) {
+			confirmationService.confirmMailAddress(token);
+			return "Verfication successful";
 		}
 	  
 	   

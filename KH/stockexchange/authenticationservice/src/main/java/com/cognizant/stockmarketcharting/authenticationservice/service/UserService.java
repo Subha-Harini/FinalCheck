@@ -10,4 +10,5 @@ public interface UserService {
 	public void signUp(User user) throws UserAlreadyExistsException;
 	public List<User> getUser() ;
 	public void updateUser(User user);
+	public User getUserByName(String name);
 }

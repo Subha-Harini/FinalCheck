@@ -24,74 +24,139 @@ CREATE TABLE IF NOT EXISTS `stock_market`.`user` (
   PRIMARY KEY (`us_id`))
 ENGINE = InnoDB;
 
+
+CREATE TABLE IF NOT EXISTS `stock_market`.`confirmation` (
+  `co_id` INT NOT NULL AUTO_INCREMENT,
+  `co_token` VARCHAR(50) NOT NULL,
+  `co_user_name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`co_id`))
+ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `stock_market`.`sector` (
-  `se_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `se_name` VARCHAR(30) NULL DEFAULT NULL,
-  `se_brief` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`se_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  `se_id` INT NOT NULL AUTO_INCREMENT,
+  `se_sector_name` VARCHAR(30) NOT NULL,
+  `se_brief` VARCHAR(400) NOT NULL,
+   PRIMARY KEY (`se_id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `stock_market`.`company`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `stock_market`.`company` (
-  `co_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `co_name` VARCHAR(50) NULL DEFAULT NULL,
-  `co_turnover` BIGINT(20) NULL DEFAULT NULL,
-  `co_ceo` VARCHAR(20) NULL DEFAULT NULL,
-  `co_board_of_directors` VARCHAR(100) NULL DEFAULT NULL,
-  `co_stock_exchange` TINYINT(1) NULL DEFAULT NULL,
-  `co_sector` VARCHAR(50) NULL DEFAULT NULL,
-  `co_breif_writeup` VARCHAR(100) NULL DEFAULT NULL,
-  `co_stock_code` INT(11) NULL DEFAULT NULL,
-  `co_se_id` INT(11) NOT NULL,
-  PRIMARY KEY (`co_id`, `co_se_id`),
-  INDEX `fk_company_sector1_idx` (`co_se_id` ASC),
-  CONSTRAINT `fk_company_sector1`
-    FOREIGN KEY (`co_se_id`)
+  `cp_id` INT NOT NULL AUTO_INCREMENT,
+  `cp_name` VARCHAR(30) NOT NULL,
+  `cp_turnover` BIGINT NOT NULL,
+  `cp_ceo` VARCHAR(30) NOT NULL,
+  `cp_listed` BOOLEAN DEFAULT FALSE,
+  `cp_se_id` INT NOT NULL,
+  `cp_brief` VARCHAR(600) NOT NULL,
+  PRIMARY KEY (`cp_id`),
+  INDEX `cp_se_fk_idx` (`cp_se_id` ASC),
+  CONSTRAINT `cp_se_fk`
+    FOREIGN KEY (`cp_se_id`)
     REFERENCES `stock_market`.`sector` (`se_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
+ENGINE = InnoDB;
 select * from company;
+
+CREATE TABLE IF NOT EXISTS `stock_market`.`board_of_directors` (
+  `bd_id` INT NOT NULL AUTO_INCREMENT,
+  `bd_cp_id` INT NOT NULL,
+  `bd_name` VARCHAR(30) NOT NULL,
+   PRIMARY KEY (`bd_id`),
+   INDEX `bd_cp_fk_idx` (`bd_cp_id` ASC),
+  CONSTRAINT `bd_cp_fk`
+    FOREIGN KEY (`bd_cp_id`)
+    REFERENCES `stock_market`.`company` (`cp_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `stock_market`.`stock_exchange`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `stock_market`.`stock_exchange` (
-  `st_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `st_stock_exchange` VARCHAR(10) NULL DEFAULT NULL,
-  `st_brief` VARCHAR(100) NULL DEFAULT NULL,
-  `st_contact_address` VARCHAR(100) NULL DEFAULT NULL,
-  `st_remarks` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`st_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  `ex_id` INT NOT NULL AUTO_INCREMENT,
+  `ex_stock_exchange` VARCHAR(30) NOT NULL,
+  `ex_brief` VARCHAR(400) NOT NULL,
+  `ex_address` VARCHAR(200) NOT NULL,
+  `ex_remarks` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`ex_id`))
+ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `stock_market`.`stock_price` (
   `sp_id` INT NOT NULL AUTO_INCREMENT,
-  `sp_company_code` INT(11),
-  `sp_stock_exchange` VARCHAR(10),
-  `sp_current_price` BIGINT,
-  `sp_date` Date,
-  `sp_time` TIME,
+  `sp_company_code` INT NOT NULL,
+  `sp_stock_exchange` VARCHAR(30) NOT NULL,
+  `sp_current_price` BIGINT NOT NULL,
+  `sp_date` DATE NOT NULL,
+  `sp_time` TIME(0) NOT NULL,
   PRIMARY KEY (`sp_id`))
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `stock_market`.`ipo_details` (
-  `ip_id` INT NOT NULL AUTO_INCREMENT,
-  `ip_company_name` VARCHAR(30),
-  `ip_stock_exchange` VARCHAR(10),
-  `ip_price_per_share` BIGINT,
-  `ip_total_shares` INT,
-  `ip_open_date_time` DATETIME,
-   `ip_remarks` VARCHAR(100),
-  PRIMARY KEY (`ip_id`))
+CREATE TABLE IF NOT EXISTS `stock_market`.`ipo` (
+  `ipo_id` INT NOT NULL AUTO_INCREMENT,
+  `ipo_cp_id` INT NOT NULL,
+  `ipo_ex_id` INT NOT NULL,
+  `ipo_share_price` BIGINT NOT NULL,
+  `ipo_total_shares` BIGINT NOT NULL,
+  `ipo_date` DATETIME NOT NULL,
+  `ipo_remarks` VARCHAR(400) NULL,
+  PRIMARY KEY (`ipo_id`),
+  INDEX `ipo_cp_id_fk_idx` (`ipo_cp_id` ASC),
+  CONSTRAINT `ipo_cp_fk`
+    FOREIGN KEY (`ipo_cp_id`)
+    REFERENCES `stock_market`.`company` (`cp_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+   INDEX `ipo_ex_id_fk_idx` (`ipo_ex_id` ASC),
+  CONSTRAINT `ipo_ex_fk`
+    FOREIGN KEY (`ipo_ex_id`)
+    REFERENCES `stock_market`.`stock_exchange` (`ex_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS `stock_market`.`company_stock` (
+	`cs_id` INT NOT NULL AUTO_INCREMENT,
+	`cs_cp_id` INT NULL,
+	`cs_ex_id` INT NULL,
+	PRIMARY KEY (`cs_id`),
+	INDEX `cs_cp_fk_idx` (`cs_cp_id` ASC),
+	INDEX `cs_ex_fk_idx` (`cs_ex_id` ASC),
+	CONSTRAINT `cs_cp_fk`
+		FOREIGN KEY (`cs_cp_id`)
+		REFERENCES `stock_market`.`company` (`cp_id`)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT `cs_ex_fk`
+		FOREIGN KEY (`cs_ex_id`)
+		REFERENCES `stock_market`.`stock_exchange` (`ex_id`)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION)
+	ENGINE = InnoDB;
 select * from user;
+select * from stock_price;
+select * from company;
+
+
+
+insert into board_of_directors (bd_cp_id,bd_name) values (1,"Harini"),(2,"John");
+
+insert into company (cp_name,cp_turnover,cp_ceo,cp_listed,cp_se_id,cp_brief) values ("Reliance",123456,"Mukesh Ambani",true,1,"Good");
+
+insert into sector (se_sector_name,se_brief) values (1,"Iron and Steel"),(2,"Pharmaceuticals"),(3,"HealthCare");
+insert into sector (se_sector_name,se_brief) values (4, "Banking");
+
+insert into company_stock (cs_cp_id,cs_ex_id) values (1,1),
+														(1,2);
+                        
+insert into stock_exchange (ex_stock_exchange,ex_brief,ex_address,ex_remarks) values ("BSE","Bombay Stock Exchange","Dalal Street, Mumbai","Good Service"),
+																					 ("NSE","National Stock Exchange","Delhi","Nil");
+					
+select cp_id,cp_name,cp_turnover,cp_ceo,cp_listed,cp_se_id,cp_brief from company inner join company_stock on company.cp_id = company_stock.cs_cp_id  inner join stock_exchange on company_stock.cs_ex_id = stock_exchange.ex_id where stock_exchange.ex_stock_exchange = "BSE";
+
+select bd_id from user inner join blood_donation on user.us_id = blood_donation.bd_us_id inner join slot_booking on blood_donation.bd_id = slot_booking.sb_bd_id where (us_name = "user" and slot_booking.sb_date-CURDATE() < 90);

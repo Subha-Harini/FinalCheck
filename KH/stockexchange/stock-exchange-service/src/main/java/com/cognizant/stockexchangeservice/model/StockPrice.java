@@ -1,4 +1,4 @@
-package com.cognizant.stockmarketcharting.authenticationservice.model;
+package com.cognizant.stockexchangeservice.model;
 
 import java.sql.Time;
 import java.util.Date;
@@ -12,32 +12,51 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="stock_price")
+@Table(name = "stock_price")
 public class StockPrice {
+	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)  
+	@NotNull
 	@Column(name="sp_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="sp_company_code")
-	@NotNull 
+	@NotNull
 	private int companyCode;
 	
-	@Column(name="sp_stock_exchange")
-	@NotNull 
+	@Column(name = "sp_stock_exchange")
+	@NotNull
 	private String stockExchange;
 	
-	@Column(name="sp_current_price")
-	@NotNull 
+	@Column(name = "sp_current_price",
+			columnDefinition = "BIGINT")
+	@NotNull
 	private long currentPrice;
-
-	@Column(name="sp_date")
-	@NotNull 
+	
+	@Column(name = "sp_date")
+	@NotNull
 	private Date date;
 	
-	@Column(name="sp_time")
-	@NotNull 
+	@Column(name = "sp_time")
+	@NotNull
 	private Time time;
+
+	public StockPrice() {
+		super();
+	}
+
+	public StockPrice(@NotNull int id, @NotNull int companyCode, @NotNull String stockExchange,
+			@NotNull long currentPrice, @NotNull Date date, @NotNull Time time) {
+		super();
+		this.id = id;
+		this.companyCode = companyCode;
+		this.stockExchange = stockExchange;
+		this.currentPrice = currentPrice;
+		this.date = date;
+		this.time = time;
+	}
 
 	public int getId() {
 		return id;
@@ -87,21 +106,6 @@ public class StockPrice {
 		this.time = time;
 	}
 
-	public StockPrice() {
-		super();
-	}
-
-	public StockPrice(int id, @NotNull int companyCode, @NotNull String stockExchange, @NotNull long currentPrice,
-			@NotNull Date date, @NotNull Time time) {
-		super();
-		this.id = id;
-		this.companyCode = companyCode;
-		this.stockExchange = stockExchange;
-		this.currentPrice = currentPrice;
-		this.date = date;
-		this.time = time;
-	}
-
 	@Override
 	public String toString() {
 		return "StockPrice [id=" + id + ", companyCode=" + companyCode + ", stockExchange=" + stockExchange
@@ -109,5 +113,5 @@ public class StockPrice {
 	}
 	
 	
-	
+
 }

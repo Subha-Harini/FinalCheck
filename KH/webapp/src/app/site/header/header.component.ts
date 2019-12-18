@@ -13,11 +13,13 @@ export class HeaderComponent implements OnInit {
   firstName: string;
   loginStatus: boolean;
   userType: string;
+  userStatus : string;
 
   ngOnInit() {
     this.firstName = null;
     this.loginStatus = this.authenticationService.loggedInUser();
     this.userType = null;
+    this.userStatus =  null;
   }
 
   getName(){
@@ -30,6 +32,11 @@ export class HeaderComponent implements OnInit {
     return this.userType;
   }
 
+  getUserStatus(){
+    this.userStatus = this.authenticationService.getStatus();
+    return this.userStatus;
+  }
+
   logout(){
     this.authenticationService.logout();
     this.authenticationService.setUserType("");
@@ -40,5 +47,10 @@ export class HeaderComponent implements OnInit {
   }
   login(){
     this.router.navigate(['login']);
+  }
+
+  editUser(name){
+    console.log(name);
+    this.router.navigate(['edit-user', name]);
   }
 }

@@ -18,6 +18,11 @@
 						Login
 					</a>
 				</li>
+				<li class="nav-item" *ngIf = "loginStatus && getUserStatus() == 'A'">
+					<a	class="nav-link" (click)="editUser(getName())">
+						EditUser
+					</a>
+				</li>
 				<li class="nav-item" *ngIf = "!loginStatus">
 					<a	class="nav-link" routerLink="/">
 						AboutUs

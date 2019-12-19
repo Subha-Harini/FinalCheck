@@ -1,4 +1,4 @@
-package com.cognizant.stockexchangeservice;
+package com.cognizant.stockexchangeservice.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.cognizant.stockexchangeservice.security.AppUserDetailsService;
-import com.cognizant.stockexchangeservice.security.JwtAuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    	httpSecurity.cors();
 	        httpSecurity.csrf().disable().httpBasic().and()
 	            .authorizeRequests()
-	            .antMatchers("/stock-exchange/stock-exchange-list").permitAll()
+	            .antMatchers("/stockmarketcharting").permitAll()
 	            .and()
 	            .addFilter(new JwtAuthorizationFilter(authenticationManager()));
 	        LOGGER.info("END CONFIGURE HTTPSECURITY");

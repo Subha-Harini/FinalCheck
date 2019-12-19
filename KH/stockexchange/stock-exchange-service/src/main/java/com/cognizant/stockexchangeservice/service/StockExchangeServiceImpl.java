@@ -1,10 +1,13 @@
 package com.cognizant.stockexchangeservice.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cognizant.stockexchangeservice.dto.CompanyDto;
+import com.cognizant.stockexchangeservice.model.Company;
 import com.cognizant.stockexchangeservice.model.StockExchange;
 import com.cognizant.stockexchangeservice.repository.StockExchangeRepository;
 
@@ -26,7 +29,8 @@ public class StockExchangeServiceImpl implements StockExchangeService{
 
 	@Override
 	public Set<Object> getAllCompanyList(String StockExchangeName) {
-		return this.stockExchangeRepository.getAllCompany(StockExchangeName);
+		return  this.stockExchangeRepository.getAllCompany(StockExchangeName);
+		
 	}
 
 }

@@ -35,21 +35,28 @@ public class StockExchange {
 	@Column(name = "ex_remarks")
 	@NotNull
 	private String remarks;
-
+	
+	@Column(name = "ex_logo")
+	@NotNull
+	private String logo;
+	
 	public StockExchange() {
 		super();
 	}
 
+
 	public StockExchange(@NotNull int id,
 			@NotNull @Size(min = 2, max = 10, message = "Sector name should be between 2 and 10 characters") String stockExchange,
-			@NotNull String brief, @NotNull String address, @NotNull String remarks) {
+			@NotNull String brief, @NotNull String address, @NotNull String remarks, @NotNull String logo) {
 		super();
 		this.id = id;
 		this.stockExchange = stockExchange;
 		this.brief = brief;
 		this.address = address;
 		this.remarks = remarks;
+		this.logo = logo;
 	}
+
 
 	public int getId() {
 		return id;
@@ -90,6 +97,17 @@ public class StockExchange {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	
+	
+	public String getLogo() {
+		return logo;
+	}
+
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
 
 	@Override
 	public String toString() {

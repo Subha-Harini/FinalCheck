@@ -33,6 +33,18 @@ export class UserService {
     let body = {
                 id: registrationForm.id,
                 name: registrationForm.name,
+                mobileNumber: registrationForm.contactNumber
+               
+    };
+    console.log(body);
+    return this.httpClient.put<any>("http://localhost:8083/authentication-service/stockmarketcharting/users", body);
+
+  }
+
+  updateUserPassword(registrationForm){   
+    let body = {
+                id: registrationForm.id,
+                name: registrationForm.name,
                 mobileNumber: registrationForm.contactNumber,
                 email: registrationForm.email,
                 password: registrationForm.password,
@@ -40,7 +52,7 @@ export class UserService {
                 status: registrationForm.status
     };
     console.log(body);
-    return this.httpClient.put<any>("http://localhost:8083/authentication-service/stockmarketcharting/users", body);
+    return this.httpClient.put<any>("http://localhost:8083/authentication-service/stockmarketcharting/users/new-password", body);
 
   }
 }

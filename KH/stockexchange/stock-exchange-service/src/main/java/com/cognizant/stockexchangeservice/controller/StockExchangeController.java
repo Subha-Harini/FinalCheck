@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.stockexchangeservice.dto.CompanyDto;
 import com.cognizant.stockexchangeservice.dto.StockExchangeDto;
-import com.cognizant.stockexchangeservice.model.Company;
 import com.cognizant.stockexchangeservice.model.StockExchange;
 import com.cognizant.stockexchangeservice.service.StockExchangeService;
 
 @RestController
-@RequestMapping("/exchange")
+@RequestMapping("/stockmarketcharting")
 public class StockExchangeController {
 	
 	@Autowired
@@ -38,8 +36,8 @@ public class StockExchangeController {
 	
 	@GetMapping("/company-list/{stockExchangeName}")
 	public Set<Object> getAllCompany(@PathVariable String stockExchangeName){
-		CompanyDto companyDto = new CompanyDto();
-		return this.stockExchangeService.getAllCompanyList(stockExchangeName);
+		
+		return  stockExchangeService.getAllCompanyList(stockExchangeName);
 	}
 
 }

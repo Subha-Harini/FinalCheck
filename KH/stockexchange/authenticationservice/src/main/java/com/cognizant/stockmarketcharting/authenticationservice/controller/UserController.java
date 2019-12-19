@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cognizant.stockmarketcharting.authenticationservice.AuthenticationserviceApplication;
 import com.cognizant.stockmarketcharting.authenticationservice.exception.UserAlreadyExistsException;
 import com.cognizant.stockmarketcharting.authenticationservice.model.User;
+import com.cognizant.stockmarketcharting.authenticationservice.model.UserModel;
 import com.cognizant.stockmarketcharting.authenticationservice.service.ConfirmationService;
 import com.cognizant.stockmarketcharting.authenticationservice.service.EmailService;
 import com.cognizant.stockmarketcharting.authenticationservice.service.UserService;
@@ -61,6 +62,7 @@ public class UserController {
 	  
 	  @GetMapping("/{name}")
 	  public User getUserByName(@PathVariable String name) {
+		  
 		 return userService.getUserByName(name);
 	  }
 	    
@@ -70,6 +72,15 @@ public class UserController {
 			String password = user.getPassword();
 			user.setPassword(passwordEncoder.encode(password));
 			System.out.println(user);
+			userService.updateUser(user);
+			LOGGER.info("End");
+		}
+	  
+	  @PutMapping()
+		public void updateUser(@RequestBody @Valid UserModel userModel)  {
+			LOGGER.info("Start");
+			User user = userService.getUserById(userModel.getId());
+			user.setMobileNumber(userModel.getMobileNumber());
 			userService.updateUser(user);
 			LOGGER.info("End");
 		}

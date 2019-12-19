@@ -1,7 +1,10 @@
 package com.cognizant.stockexchangeservice.service;
 
+import java.util.List;
 import java.util.Set;
 
+import com.cognizant.stockexchangeservice.dto.CompanyDto;
+import com.cognizant.stockexchangeservice.model.Company;
 import com.cognizant.stockexchangeservice.model.StockExchange;
 
 public interface StockExchangeService {

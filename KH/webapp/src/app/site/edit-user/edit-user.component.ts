@@ -13,6 +13,7 @@ export class EditUserComponent implements OnInit {
   user: any;
   userEdited:boolean;
   error:string;
+  toChangePassword: boolean;
   constructor(private router: ActivatedRoute,private userService:UserService, private route: Router) {
     this.signupForm = new FormGroup({
       'id': new FormControl(0),
@@ -27,7 +28,7 @@ export class EditUserComponent implements OnInit {
    }
 
   ngOnInit() {
-
+    this.toChangePassword = false;
 
     this.router.paramMap.subscribe(params => {
       console.log(params);
@@ -52,13 +53,27 @@ export class EditUserComponent implements OnInit {
   }
   onSubmit(signupForm){
     console.log(signupForm.value)
-    this.userService.register(signupForm.value).subscribe((response)=>{
+
+    if(this.toChangePassword){
+      this.userService.updateUserPassword(signupForm.value).subscribe((response)=>{
+        this.userEdited = true;
+      }, (responseError) => {
+        this.error = responseError.error.errorMessage;
+      });
+    }
+    else{
+    this.userService.updateUser(signupForm.value).subscribe((response)=>{
       this.userEdited = true;
     }, (responseError) => {
       this.error = responseError.error.errorMessage;
     });
   }
 
+  }
+
+  password(){
+    this.toChangePassword = true;
+  }
   login(){
     this.route.navigate(['login']);
   }

@@ -46,6 +46,18 @@ public class User {
 	public int getId() {
 		return id;
 	}
+	
+	public User(int id, @NotNull String name, String password, @NotNull String userType, @NotNull String email,
+			@NotNull long mobileNumber, @NotNull String status) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.userType = userType;
+		this.email = email;
+		this.mobileNumber = mobileNumber;
+		this.status = status;
+	}
 
 	public void setId(int id) {
 		this.id = id;

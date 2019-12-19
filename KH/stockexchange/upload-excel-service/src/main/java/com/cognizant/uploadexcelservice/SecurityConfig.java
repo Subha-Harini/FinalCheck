@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    	httpSecurity.cors();
 	        httpSecurity.csrf().disable().httpBasic().and()
 	            .authorizeRequests()
-	            .antMatchers("/stock-exchange/stock-exchange-list").permitAll()
+	            .antMatchers("/excel-upload/upload").authenticated()
+	            .antMatchers("/excel-upload/summary").authenticated()
 	            .and()
 	            .addFilter(new JwtAuthorizationFilter(authenticationManager()));
 	        LOGGER.info("END CONFIGURE HTTPSECURITY");

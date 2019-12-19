@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.authenticationService.setStatus(response['status']);
           this.authenticationService.setUserType(response['userType']);
           this.authenticationService.setName(response['name']);
-          this.route.navigate(['stock-page']);
+          this.route.navigate(['company-display']);
       }
     },
       (responseError) => {

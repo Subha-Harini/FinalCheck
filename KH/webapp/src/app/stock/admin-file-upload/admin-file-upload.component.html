@@ -1,0 +1,79 @@
+
+<app-header></app-header>
+<section class="container bg-light mt-5" *ngIf='!uploadFlag' ><br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input  class="text-dark" type="file" 
+(change)="fileChange($event)"
+placeholder="Upload file" 
+accept=".pdf,.doc,.docx,.xlsx"><br><br>
+</section>
+
+
+
+<section class="container-fluid mt-5" *ngIf='uploadFlag' ><br><br>
+	<div class="row">
+		<div class="col-lg-2 col-sm-12">
+		</div>
+    <div class="col-lg-8 col-sm-12  bg-light"><br><br>
+         
+           <li class="list-group-item d-flex justify-content-between align-items-center" >
+              <span>
+                  <h5 class="text-dark">No of records </h5>
+              </span>
+              <span class="text-danger">
+                  <h5> {{summary.noOfRecords}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" >
+              <span>
+                  <h5 class="text-dark">Company Name</h5>
+              </span>
+              <span class="text-danger">
+                  <h5> {{summary.companyName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+          </li>
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+                <h5 class="text-dark">Min Date</h5>
+            </span>
+            <span class="text-danger">
+                <h5>{{summary.minDate  | date: 'dd/MM/yyyy' }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+            </span>
+           </li> 
+           <li class="list-group-item d-flex justify-content-between align-items-center" >
+              <span>
+                  <h5 class="text-dark">Max date</h5>
+              </span>
+              <span class="text-danger">
+                  <h5 >{{summary.maxDate  | date: 'dd/MM/yyyy' }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+            </li>
+        
+        <button class="bth btn-primary text-light" (click)="back()">Back</button> 
+        
+
+      <br><br>
+		</div>
+		<div class="col-lg-2 col-sm-12">
+		</div>
+	</div><br><br>
+</section>
+
+
+<footer class="footer">
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark text-light mt-5">
+    <div class="footer-bottom ">
+      <div class="row ">
+        <div>
+          Copyright &copy; 2019&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="ml-auto">
+          Follow us on:
+          <a href="#" class="fa fa-facebook"></a>
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</footer>

@@ -23,6 +23,11 @@
 						EditUser
 					</a>
 				</li>
+				<li class="nav-item" *ngIf = "loginStatus && getUserType() == 'Admin'">
+					<a	class="nav-link" (click)="uploadFile()">
+						uploadFile
+					</a>
+				</li>
 				<li class="nav-item" *ngIf = "!loginStatus">
 					<a	class="nav-link" routerLink="/">
 						AboutUs

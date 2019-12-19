@@ -8,6 +8,6 @@ import com.cognizant.stockmarketcharting.authenticationservice.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	User findByName(String name);
-	
+	User findById(int id);
 	User findByEmail(String email);
 }

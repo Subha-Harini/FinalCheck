@@ -9,7 +9,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './site/login/login.component';
 import { HeaderComponent } from './site/header/header.component';
 import { EditUserComponent } from './site/edit-user/edit-user.component';
-import { StockPageComponent } from './stock/stock-page/stock-page.component';
+import { HomeComponent } from './home/home.component';
+import { CompanyDisplayComponent } from './stock/company-display/company-display.component';
+import { SearchComponent } from './stock/search/search.component';
+import { AdminFileUploadComponent } from './stock/admin-file-upload/admin-file-upload.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { StockPageComponent } from './stock/stock-page/stock-page.component';
     LoginComponent,
     HeaderComponent,
     EditUserComponent,
-    StockPageComponent
+    HomeComponent,
+    CompanyDisplayComponent,
+    SearchComponent,
+    AdminFileUploadComponent,
   ],
   imports: [
     BrowserModule,

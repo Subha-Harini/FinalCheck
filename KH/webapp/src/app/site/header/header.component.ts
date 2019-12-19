@@ -53,4 +53,8 @@ export class HeaderComponent implements OnInit {
     console.log(name);
     this.router.navigate(['edit-user', name]);
   }
+
+  uploadFile(){
+    this.router.navigate(['upload-file']);
+  }
 }

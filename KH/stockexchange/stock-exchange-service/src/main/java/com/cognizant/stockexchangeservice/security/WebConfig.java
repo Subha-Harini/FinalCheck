@@ -1,4 +1,4 @@
-package com.cognizant.stockexchangeservice;
+package com.cognizant.stockexchangeservice.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

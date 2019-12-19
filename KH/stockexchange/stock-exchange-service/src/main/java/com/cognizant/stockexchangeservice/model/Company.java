@@ -48,6 +48,11 @@ public class Company {
 	@Column(name = "cp_brief")
 	private String brief;
 	
+
+	@NotNull
+	@Column(name = "cp_logo")
+	private String logo;
+	
 	@NotNull
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "bd_id")
@@ -68,9 +73,11 @@ public class Company {
 		super();
 	}
 
+	
+	
 	public Company(@NotNull int id, @NotNull String name, @NotNull long turnover, @NotNull String ceo,
-			@NotNull boolean listed, @NotNull String brief, @NotNull Set<BoardOfDirectors> boardOfDirectors,
-			@NotNull Sector sector, Set<StockExchange> stockExchange) {
+			@NotNull boolean listed, @NotNull String brief, @NotNull String logo,
+			@NotNull Set<BoardOfDirectors> boardOfDirectors, @NotNull Sector sector, Set<StockExchange> stockExchange) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,10 +85,13 @@ public class Company {
 		this.ceo = ceo;
 		this.listed = listed;
 		this.brief = brief;
+		this.logo = logo;
 		this.boardOfDirectors = boardOfDirectors;
 		this.sector = sector;
 		this.stockExchange = stockExchange;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -155,11 +165,24 @@ public class Company {
 		this.stockExchange = stockExchange;
 	}
 
+	public String getLogo() {
+		return logo;
+	}
+
+
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + ", turnover=" + turnover + ", ceo=" + ceo + ", listed=" + listed
-				+ ", brief=" + brief + ", boardOfDirectors=" + boardOfDirectors + ", sector=" + sector
-				+ ", stockExchange=" + stockExchange + "]";
+				+ ", brief=" + brief + ", boardOfDirectors=" + boardOfDirectors + ", sector=" + sector + "]";
 	}
+
+	
 	
 }

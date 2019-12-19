@@ -63,7 +63,7 @@ public class UploadExcelServiceImpl implements UploadExcelService {
 			StockPrice stockPrice = new StockPrice();
 			
 			Row nextRow = rowIterator.next();
-			count = count-1;
+			count = count+1;
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
 
 			while (cellIterator.hasNext()) {
@@ -117,7 +117,13 @@ public class UploadExcelServiceImpl implements UploadExcelService {
 
 			}
 			if(stockPrice.getCompanyCode() != 0 ) {
-                stockPriceRepository.save(stockPrice);}              
+				
+				StockPrice newStockPrice=stockPriceRepository.getStock(stockPrice.getDate(), stockPrice.getTime(), stockPrice.getCompanyCode(), stockPrice.getStockExchange());
+				
+				if(newStockPrice==null) {
+            		count=count+1;
+            		stockPriceRepository.save(stockPrice);
+            	}  }            
                }     
            workbook.close();
            

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name=&quot;user&quot;)
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
+	@Column(name=&quot;us_id&quot;)
+	private int id;
+	
+	@Column(name=&quot;us_name&quot;)
+	@NotNull 
+	private String name;
+	
+	@Column(name=&quot;us_password&quot;)
+	private String password;
+	
+	@Column(name=&quot;us_user_type&quot;)
+	@NotNull
+	private String userType;
+	
+	@Column(name=&quot;us_email&quot;)
+	@NotNull
+	private String email;
+	
+	@Column(name=&quot;us_mobile_number&quot;)
+	@NotNull
+	private long mobileNumber;
+	
+	@Column(name=&quot;us_status&quot;)
+	@NotNull
+	private String status;
+
+	public User() {
+<span class="nc" id="L43">		super();</span>
+<span class="nc" id="L44">	}</span>
+
+	public int getId() {
+<span class="nc" id="L47">		return id;</span>
+	}
+	
+	public User(int id, @NotNull String name, String password, @NotNull String userType, @NotNull String email,
+			@NotNull long mobileNumber, @NotNull String status) {
+<span class="fc" id="L52">		super();</span>
+<span class="fc" id="L53">		this.id = id;</span>
+<span class="fc" id="L54">		this.name = name;</span>
+<span class="fc" id="L55">		this.password = password;</span>
+<span class="fc" id="L56">		this.userType = userType;</span>
+<span class="fc" id="L57">		this.email = email;</span>
+<span class="fc" id="L58">		this.mobileNumber = mobileNumber;</span>
+<span class="fc" id="L59">		this.status = status;</span>
+<span class="fc" id="L60">	}</span>
+
+	public void setId(int id) {
+<span class="nc" id="L63">		this.id = id;</span>
+<span class="nc" id="L64">	}</span>
+
+	public String getName() {
+<span class="fc" id="L67">		return name;</span>
+	}
+
+	public void setName(String name) {
+<span class="nc" id="L71">		this.name = name;</span>
+<span class="nc" id="L72">	}</span>
+
+	public String getPassword() {
+<span class="fc" id="L75">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="nc" id="L79">		this.password = password;</span>
+<span class="nc" id="L80">	}</span>
+
+	public String getUserType() {
+<span class="fc" id="L83">		return userType;</span>
+	}
+
+	public void setUserType(String userType) {
+<span class="nc" id="L87">		this.userType = userType;</span>
+<span class="nc" id="L88">	}</span>
+
+	public String getEmail() {
+<span class="nc" id="L91">		return email;</span>
+	}
+
+	public void setEmail(String email) {
+<span class="nc" id="L95">		this.email = email;</span>
+<span class="nc" id="L96">	}</span>
+
+	public long getMobileNumber() {
+<span class="nc" id="L99">		return mobileNumber;</span>
+	}
+
+	public void setMobileNumber(long mobileNumber) {
+<span class="nc" id="L103">		this.mobileNumber = mobileNumber;</span>
+<span class="nc" id="L104">	}</span>
+
+	
+
+	public String getStatus() {
+<span class="fc" id="L109">		return status;</span>
+	}
+
+	public void setStatus(String status) {
+<span class="fc" id="L113">		this.status = status;</span>
+<span class="fc" id="L114">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L118">		return &quot;User [id=&quot; + id + &quot;, name=&quot; + name + &quot;, password=&quot; + password + &quot;, userType=&quot; + userType + &quot;, email=&quot;</span>
+<span class="fc" id="L119">				+ email + &quot;, mobileNumber=&quot; + mobileNumber + &quot;, status=&quot; + status + &quot;]&quot;;</span>
+	}
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</div></body></html>

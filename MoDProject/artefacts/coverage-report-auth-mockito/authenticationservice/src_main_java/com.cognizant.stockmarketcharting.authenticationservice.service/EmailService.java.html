@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmailService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice.service</a> &gt; <span class="el_source">EmailService.java</span></div><h1>EmailService.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice.service;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EmailService{
+
+	private JavaMailSender javaMailSender;
+	 
+    @Autowired
+<span class="nc" id="L16">    public EmailService(JavaMailSender javaMailSender) {</span>
+<span class="nc" id="L17">        this.javaMailSender = javaMailSender;</span>
+<span class="nc" id="L18">    }</span>
+    
+	
+	public EmailService() {
+<span class="nc" id="L22">		super();</span>
+<span class="nc" id="L23">	}</span>
+
+
+	public void send(String from, String to, String title, String body) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L28">		System.out.println(&quot;email send start ****&quot;);</span>
+<span class="nc" id="L29">		MimeMessage message = this.javaMailSender.createMimeMessage();</span>
+<span class="nc" id="L30">        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);</span>
+        try {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (from != null) {</span>
+<span class="nc" id="L33">                mimeMessageHelper.setFrom(from);</span>
+            }
+<span class="nc" id="L35">            mimeMessageHelper.setSubject(title);</span>
+<span class="nc" id="L36">            mimeMessageHelper.setText(body);</span>
+<span class="nc" id="L37">            mimeMessageHelper.setTo(to);</span>
+<span class="nc" id="L38">            this.javaMailSender.send(message);</span>
+<span class="nc" id="L39">        } catch (MessagingException messageException) {</span>
+           
+<span class="nc" id="L41">            throw new RuntimeException(messageException);</span>
+        }
+<span class="nc" id="L43">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</div></body></html>

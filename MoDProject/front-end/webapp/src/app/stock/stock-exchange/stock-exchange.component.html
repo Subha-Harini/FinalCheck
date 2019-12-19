@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+
+<div class="container-fluid" ><br>
+
+  <div class="row">    
+     <div class="col-sm-12 col-md-12 col-lg-4 input-group mb-3 ml-auto">
+      <button class="bth btn-primary text-light ml-auto" (click)="add()">
+        AddStockExchnage
+      </button>
+     </div>
+ </div> 
+
+ <div class="row mt-5" >
+     <ng-container *ngFor="let stock of stockExchangeList">
+         <div class="col-sm-12 col-md-6 col-lg-4 p-4 ">
+             <div class="card" >
+
+
+                 <div class="row ">
+                     <div class="col-lg-5 col-md-6 col-sm-6">
+                       <img class="card-img" src={{stock.logo}} height="300px" alt="image">
+                     </div>
+                     <div class="col-lg-7 col-md-6 col-sm-6">
+                       <div class="card-body"><p></p>  
+                         <div class="row ">
+                           <div>
+                             <h2 class="card-title mr-auto"><b>{{stock.stockExchange}} </b>   </h2>
+                           </div>
+                         </div><p></p>
+                         <div class="row ">
+                           <div><b>Brief :  </b>{{stock.brief}}
+                           </div>
+                           <div class="ml-auto"></div>
+                         </div><p></p>
+                         <div class="row  d-flex justify-content-between">
+                           <div>
+                             <div><b>Location : </b>{{ stock.address}}</div>
+                           </div>
+                         </div><p></p>
+                         <div class="row  d-flex justify-content-between">
+                          <div>
+                            <div><b>Remarks : </b>{{ stock.remarks}}</div>  
+                          </div>
+                        </div><p></p>
+                                            
+                         <div class="row d-flex justify-content-between">
+                             <div class="ml-auto">
+                                 <button class="btn btn-primary" (click) ="edit(stock.id)"  >Edit Details</button>
+                             </div>
+                         </div>
+                       
+                       </div>
+                     </div>
+                   </div>
+
+
+             </div>
+         </div>
+     </ng-container>
+ </div>
+
+</div>
+
+<footer class="footer">
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark text-light mt-5">
+    <div class="footer-bottom ">
+      <div class="row ">
+        <div>
+          Copyright &copy; 2019&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="ml-auto">
+          Follow us on:
+          <a href="#" class="fa fa-facebook"></a>
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</footer>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AppUserDetailsService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice.security</a> &gt; <span class="el_source">AppUserDetailsService.java</span></div><h1>AppUserDetailsService.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.cognizant.stockmarketcharting.authenticationservice.model.User;
+import com.cognizant.stockmarketcharting.authenticationservice.repository.UserRepository;
+
+
+
+@Service
+public class AppUserDetailsService implements UserDetailsService {
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	
+	
+	public AppUserDetailsService(UserRepository userRepository) {
+<span class="fc" id="L23">		super();</span>
+<span class="fc" id="L24">		this.userRepository = userRepository;</span>
+<span class="fc" id="L25">	}</span>
+
+
+
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+<span class="nc" id="L31">		AppUser appUser = null;</span>
+<span class="nc" id="L32">		User user = userRepository.findByName(userName);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		if(user == null) {</span>
+<span class="nc" id="L34">			throw new UsernameNotFoundException(userName);</span>
+		}
+		else {
+<span class="nc" id="L37">			appUser = new AppUser(user);</span>
+		}
+<span class="nc" id="L39">		return appUser;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</div></body></html>

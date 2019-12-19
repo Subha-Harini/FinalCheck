@@ -1,0 +1,147 @@
+<app-header></app-header>
+
+<div class="container-fluid" *ngIf='!isGetDetailsClicked'><br>
+
+     <div class="row">    
+        <div class="col-sm-12 col-md-12 col-lg-4 input-group mb-3 ml-auto">
+            <app-search (searchEmitterEvent)="filterItems($event)"></app-search>
+        </div>
+    </div> 
+
+    <div class="row mt-5" >
+        <ng-container *ngFor="let company of filterCompanyList">
+            <div class="col-sm-12 col-md-6 col-lg-4 p-4 ">
+                <div class="card" >
+
+
+                    <div class="row ">
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                          <img class="card-img" src={{company.logo}} height="350px" alt="image">
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-6">
+                          <div class="card-body"><p></p><p></p>    
+                            <div class="row ">
+                              <div>
+                                <h2 class="card-title mr-auto"><b>{{company.name}} </b>   </h2>
+                              </div>
+                            </div><p></p>
+                            <div class="row ">
+                              <div><b>Turnover : </b><span class="badge badge-info">&#x24; {{company.turnover}}</span>
+                              </div>
+                              <div class="ml-auto"></div>
+                            </div><p></p>
+                            <div class="row  d-flex justify-content-between">
+                              <div>
+                                <div><b>Sector : </b>{{ company.sector.brief}}</div>
+                                
+                              </div>
+                            </div><p></p>
+                            <div class="row d-flex justify-content-between">
+                              <div>
+                                <h6><b>CEO : </b>{{company.ceo }}</h6>
+                              </div>
+                            </div>   <p></p><p></p>                       
+                            <div class="row d-flex justify-content-between">
+                                <div class="ml-auto">
+                                    <button class="btn btn-primary" (click) ="getDetails(company.id)"  >Get Details</button>
+                                </div>
+                            </div>
+                          
+                          </div>
+                        </div>
+                      </div>
+
+
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+</div>
+
+
+<section class="container-fluid mt-5" *ngIf='isGetDetailsClicked' ><br><br>
+	<div class="row">
+		<div class="col-lg-2 col-sm-12">
+		</div>
+    <div class="col-lg-8 col-sm-12  bg-light"><br><br>
+         
+           <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+              <span>
+                  <h5 class="text-dark">Company Name </h5>
+              </span>
+              <span class="text-danger">
+                  <h5> {{company.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+              <span>
+                  <h5 class="text-dark">Turnover</h5>
+              </span>
+              <span class="text-danger">
+                  <h5>&#x24; {{company.turnover}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+          </li>
+           <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+            <span>
+                <h5 class="text-dark">CEO</h5>
+            </span>
+            <span class="text-danger">
+                <h5>{{company.ceo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+            </span>
+           </li> 
+           <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+              <span>
+                  <h5 class="text-dark">Board Of Directors</h5>
+              </span>
+              <span class="text-danger">
+                  <h5 *ngFor="let b of company.boardOfDirectors">{{b.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+              </span>
+            </li> 
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+                <span>
+                    <h5 class="text-dark">Sector</h5>
+                </span>
+                <span class="text-danger">
+                    <h5 >{{ company.sector.brief}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                </span>
+              </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf='isGetDetailsClicked'>
+                <span>
+                    <h5 class="text-dark">Stock Exchange</h5>
+                </span>
+                <span class="text-danger">
+                    <h5 *ngFor="let b of company.stockExchange">{{b.stockExchange}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                </span>
+              </li> 
+        
+        <button *ngIf='isGetDetailsClicked' class="bth btn-primary text-light" (click)="back()">Back</button> 
+        
+
+      <br><br>
+		</div>
+		<div class="col-lg-2 col-sm-12">
+		</div>
+	</div><br><br>
+</section>
+
+
+
+
+<footer class="footer">
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark text-light mt-5">
+    <div class="footer-bottom ">
+      <div class="row ">
+        <div>
+          Copyright &copy; 2019&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="ml-auto">
+          Follow us on:
+          <a href="#" class="fa fa-facebook"></a>
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</footer>

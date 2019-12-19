@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MyError.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice.model</a> &gt; <span class="el_source">MyError.java</span></div><h1>MyError.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice.model;
+
+import java.util.Date;
+
+public class MyError {
+	
+	private String errorDescription;
+	private String errorMessage;
+	private Date time;
+	
+	public MyError() {
+<span class="nc" id="L12">		super();</span>
+<span class="nc" id="L13">	}</span>
+	public MyError(String errorMessage,String description,  Date time) {
+<span class="nc" id="L15">		super();</span>
+<span class="nc" id="L16">		this.errorDescription = description;</span>
+<span class="nc" id="L17">		this.errorMessage = errorMessage;</span>
+<span class="nc" id="L18">		this.time = time;</span>
+<span class="nc" id="L19">	}</span>
+	public String getErrorCode() {
+<span class="nc" id="L21">		return errorDescription;</span>
+	}
+	public void setErrorCode(String errorCode) {
+<span class="nc" id="L24">		this.errorDescription = errorCode;</span>
+<span class="nc" id="L25">	}</span>
+	public String getErrorMessage() {
+<span class="nc" id="L27">		return errorMessage;</span>
+	}
+	public void setErrorMessage(String errorMessage) {
+<span class="nc" id="L30">		this.errorMessage = errorMessage;</span>
+<span class="nc" id="L31">	}</span>
+	public Date getTime() {
+<span class="nc" id="L33">		return time;</span>
+	}
+	public void setTime(Date time) {
+<span class="nc" id="L36">		this.time = time;</span>
+<span class="nc" id="L37">	}</span>
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</div></body></html>

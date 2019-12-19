@@ -1,0 +1,169 @@
+<app-header></app-header>
+<div class="container mt-2 mb-5 ">
+  <br><br>
+  <div class="row">
+    <div class="col-lg-2 col-sm-12">
+    </div>
+    <div class="col-lg-8 col-sm-12 border bg-light"><br><br>
+      <form [formGroup]="addForm" method="post">
+        <h1>Add Stock Exchange Form</h1><br>
+       
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="name">
+                Stock Exchange
+                <span class="text-danger"> * </span>
+              </label>
+              <input type="text" 
+                     [ngClass]="[(addForm.controls.stockExchange.dirty || addForm.controls.stockExchange.touched) && addForm.controls.stockExchange.valid ? 'is-valid' : '',
+                            (addForm.controls.stockExchange.dirty || addForm.controls.stockExchange.touched) && addForm.controls.stockExchange.invalid ? 'is-invalid' : '', 
+                            (addForm.controls.stockExchange.valid || addForm.controls.stockExchange.invalid) ? 'form-control' : '']"
+                     id="name" 
+                     name="name" 
+                     formControlName="stockExchange">
+              <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                <span class="text-danger small"
+                  *ngIf="addForm.get('stockExchange').invalid && addForm.get('stockExchange').touched">
+                  Please enter valid name !
+                </span></div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="brief">
+                Brief
+                <span class="text-danger"> * </span>
+              </label>
+              <input type="text" 
+                     [ngClass]="[(addForm.controls.brief.dirty || addForm.controls.brief.touched) && addForm.controls.brief.valid ? 'is-valid' : '',
+                                 (addForm.controls.brief.dirty || addForm.controls.brief.touched) && addForm.controls.brief.invalid ? 'is-invalid' : '', 
+                                 (addForm.controls.brief.valid || addForm.controls.brief.invalid) ? 'form-control' : '']"  
+                     id="brief" 
+                     name="brief" 
+                     formControlName="brief">
+              <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                <span class="text-danger small"
+                  *ngIf="addForm.get('brief').invalid && addForm.get('brief').touched">
+                  Please enter valid  brief!
+                </span></div>
+            </div>
+          </div>
+         
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="address">
+               Location
+                <span class="text-danger"> * </span>
+              </label>
+              <input type="text" 
+                     [ngClass]="[(addForm.controls.address.dirty || addForm.controls.address.touched) && addForm.controls.address.valid ? 'is-valid' : '',
+                            (addForm.controls.address.dirty || addForm.controls.address.touched) && addForm.controls.address.invalid ? 'is-invalid' : '', 
+                            (addForm.controls.address.valid || addForm.controls.address.invalid) ? 'form-control' : '']"
+                     id="address" 
+                     name="address" 
+                     formControlName="address">
+              <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                <span class="text-danger small"
+                  *ngIf="addForm.get('address').invalid && addForm.get('address').touched">
+                  Please enter valid location!
+                </span></div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="remarks">
+                Remarks
+                
+              </label>
+              <input 
+                      type="text" 
+                     [ngClass]="[(addForm.controls.remarks.dirty || addForm.controls.remarks.touched) && addForm.controls.remarks.valid ? 'is-valid' : '',
+                                 (addForm.controls.remarks.dirty || addForm.controls.remarks.touched) && addForm.controls.remarks.invalid ? 'is-invalid' : '', 
+                                 (addForm.controls.remarks.valid || addForm.controls.remarks.invalid) ? 'form-control' : '']"  
+                     id="remarks" 
+                     name="remarks" 
+                     formControlName="remarks">
+              <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="logo">
+                     Logo URL
+                      <span class="text-danger"> * </span>
+                    </label>
+                    <input type=" text" 
+                           [ngClass]="[(addForm.controls.logo.dirty || addForm.controls.logo.touched) && addForm.controls.logo.valid ? 'is-valid' : '',
+                                  (addForm.controls.logo.dirty || addForm.controls.logo.touched) && addForm.controls.logo.invalid ? 'is-invalid' : '', 
+                                  (addForm.controls.logo.valid || addForm.controls.logo.invalid) ? 'form-control' : '']"
+                           id="logo" 
+                           name="logo" 
+                           formControlName="logo">
+                    <div><span [style.visibility]="'hidden'" class="text-danger small">s</span>
+                      <span class="text-danger small"
+                        *ngIf="addForm.get('logo').invalid && addForm.get('logo').touched">
+                        Please enter valid logo!
+                      </span></div>
+                  </div>
+                </div> 
+              </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+            <button class="btn btn-primary"
+                    type="button" 
+                    (click)="onSubmit(addForm)"
+                    [disabled]="!addForm.valid">
+                        Add
+            </button>
+          </div>
+        </div>
+
+        <div id="notification" class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+            <span class="badge badge-success" *ngIf="stockCreated">New Stock Exchange added Suceesfully : <a (click)="back()" >Back</a></span>
+            <span class="badge badge-danger" *ngIf="error != null">{{error}}</span>
+          </div>
+        </div>
+        
+
+      </form><br><br>
+    </div>
+    <div class="col-lg-2 col-sm-12">
+    </div>
+  </div>
+  <br><br>
+</div>
+
+<footer class="footer">
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark text-light mt-5">
+    <div class="footer-bottom ">
+      <div class="row ">
+        <div>
+          Copyright &copy; 2019&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="ml-auto">
+          Follow us on:
+          <a href="#" class="fa fa-facebook"></a>
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</footer>

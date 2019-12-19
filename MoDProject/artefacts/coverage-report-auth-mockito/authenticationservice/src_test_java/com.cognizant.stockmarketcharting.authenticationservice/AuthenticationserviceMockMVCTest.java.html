@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AuthenticationserviceMockMVCTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice</a> &gt; <span class="el_source">AuthenticationserviceMockMVCTest.java</span></div><h1>AuthenticationserviceMockMVCTest.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice;
+
+
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import com.cognizant.stockmarketcharting.authenticationservice.controller.UserController;
+import com.cognizant.stockmarketcharting.authenticationservice.model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
+<span class="nc" id="L31">public class AuthenticationserviceMockMVCTest {</span>
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@Autowired
+	private UserController userController;
+	
+	@Test
+	public void getAllUsers() throws Exception {
+<span class="nc" id="L41">		mockMvc.perform(MockMvcRequestBuilders.get(&quot;/stockmarketcharting/users&quot;)).andExpect(status().isOk());</span>
+<span class="nc" id="L42">	}</span>
+
+	@Test
+    public void newUser() throws Exception {
+<span class="nc" id="L46">       mockMvc.perform(MockMvcRequestBuilders</span>
+<span class="nc" id="L47">    		      .post(&quot;/stockmarketcharting/users&quot;)</span>
+<span class="nc" id="L48">    		      .content(asJsonString(new User(10,&quot;Harin&quot;,&quot;pwd&quot;,&quot;USER&quot;,  &quot;subhar31071998@gmail.com&quot;, 760067666, &quot;P&quot;)))</span>
+<span class="nc" id="L49">    		      .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="nc" id="L50">    		      .accept(MediaType.APPLICATION_JSON))</span>
+<span class="nc" id="L51">    		      .andExpect(status().isOk());</span>
+<span class="nc" id="L52">    }</span>
+	
+	public static String asJsonString(final Object obj) {
+	    try {
+<span class="nc" id="L56">	        return new ObjectMapper().writeValueAsString(obj);</span>
+<span class="nc" id="L57">	    } catch (Exception e) {</span>
+<span class="nc" id="L58">	        throw new RuntimeException(e);</span>
+	    }
+	}
+	
+	/*@Test
+	public void testConfirmation() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get(&quot;/stockmarketcharting/users/confirmation/L7TU9EQYC1&quot;)).andExpect(status().isOk());
+	}*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationMockitoTest (19 Dec, 2019 8:55:27 PM)</div></body></html>

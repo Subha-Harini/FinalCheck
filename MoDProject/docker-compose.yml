@@ -1,0 +1,90 @@
+version: '3'
+services:
+  stockmarket-mysql:
+    image: mysql:8.0.18
+    ports:
+      - "33061:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - C:\Users\Admin\Desktop\MoDProject:/var/lib/mysql
+      - ./dbscripts:/docker-entrypoint-initdb.d
+      
+  eureka-discovery-server:
+    image: eureka-discovery-app
+    build: mid-tier/eureka-discovery-server/.
+    ports:
+      - 8761:8761
+      
+  authentication-service:
+    image: authentication-app
+    build: mid-tier/authentication-service/.
+    ports:
+      - 8091:8091
+    depends_on:
+      - stockmarket-mysql
+      - eureka-discovery-server
+    links:
+      - stockmarket-mysql
+      - eureka-discovery-server
+      
+  company-service:
+    image: company-app
+    build: mid-tier/retreive-company--service/.
+    ports:
+      - 8099:8099
+    depends_on:
+      - stockmarket-mysql
+      - eureka-discovery-server
+    links:
+      - stockmarket-mysql
+      - eureka-discovery-server
+      
+  stock-exchange-service:
+    image: stock-exchange-app
+    build: mid-tier/stock-exchange-service/.
+    ports:
+      - 8097:8097
+    depends_on:
+      - stockmarket-mysql
+      - eureka-discovery-server
+    links:
+      - stockmarket-mysql
+      - eureka-discovery-server 
+        
+  upload-excel-service:
+    image: upload-excel-app
+    build: mid-tier/upload-excel-service/.
+    ports:
+      - 8095:8095
+    depends_on:
+      - stockmarket-mysql
+      - eureka-discovery-server
+    links:
+      - stockmarket-mysql
+      - eureka-discovery-server 
+      
+  zuul-gateway:
+    image: zuul-gateway-app
+    build: mid-tier/zuul-gateway/.
+    ports:
+      - 8083:8083
+    depends_on:
+      - authentication-service
+      - company-service
+      - upload-excel-service
+      - stock-exchange-service
+    links:
+      - authentication-service
+      - company-service
+      - upload-excel-service
+      - stock-exchange-service
+            
+  angular-app:
+    image: angular-app
+    build: front-end/webapp/.
+    ports:
+      - 4200:80
+    links:
+      - zuul-gateway 
+       

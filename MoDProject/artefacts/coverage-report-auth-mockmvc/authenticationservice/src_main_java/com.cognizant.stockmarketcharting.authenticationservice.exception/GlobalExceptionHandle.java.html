@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandle.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</a> &gt; <a href="../../index.html" class="el_group">authenticationservice</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.stockmarketcharting.authenticationservice.exception</a> &gt; <span class="el_source">GlobalExceptionHandle.java</span></div><h1>GlobalExceptionHandle.java</h1><pre class="source lang-java linenums">package com.cognizant.stockmarketcharting.authenticationservice.exception;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.cognizant.stockmarketcharting.authenticationservice.AuthenticationserviceApplication;
+import com.cognizant.stockmarketcharting.authenticationservice.model.MyError;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@ControllerAdvice
+<span class="fc" id="L28">public class GlobalExceptionHandle extends ResponseEntityExceptionHandler {</span>
+	
+<span class="fc" id="L30">	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationserviceApplication.class);</span>
+	
+	 @Override
+	    protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+	            HttpHeaders headers, HttpStatus status, WebRequest request) {
+<span class="nc" id="L35">	        LOGGER.info(&quot;Start&quot;);</span>
+	        // Map that contains the error details
+<span class="nc" id="L37">	        Map&lt;String, Object&gt; body = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L38">	        body.put(&quot;timestamp&quot;, new Date());</span>
+<span class="nc" id="L39">	        body.put(&quot;status&quot;, status.value());</span>
+
+	        // Get all validation errors
+<span class="nc" id="L42">	        List&lt;String&gt; errors = ex.getBindingResult().getFieldErrors().stream().map(x -&gt; x.getDefaultMessage())</span>
+<span class="nc" id="L43">	                .collect(Collectors.toList());</span>
+
+	        // Add errors to the response map        
+<span class="nc" id="L46">	        body.put(&quot;errors&quot;, errors);</span>
+
+<span class="nc" id="L48">	        LOGGER.info(&quot;End&quot;);</span>
+<span class="nc" id="L49">	        return new ResponseEntity&lt;&gt;(body, headers, status);</span>
+	    }
+
+	@Override
+	protected ResponseEntity&lt;Object&gt; handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+<span class="nc" id="L55">		 LOGGER.info(&quot;Start&quot;);</span>
+<span class="nc" id="L56">		Map&lt;String, Object&gt; body = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L57">        body.put(&quot;timestamp&quot;, new Date());</span>
+<span class="nc" id="L58">        body.put(&quot;status&quot;, status.value());</span>
+<span class="nc" id="L59">        body.put(&quot;error&quot;, &quot;Bad Request&quot;);</span>
+
+<span class="nc" id="L61">        List&lt;String&gt; errors = new ArrayList&lt;String&gt;();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (ex.getCause() instanceof InvalidFormatException) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            final Throwable cause = ex.getCause() == null ? ex : ex.getCause();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            for (InvalidFormatException.Reference reference : ((InvalidFormatException) cause).getPath()) {</span>
+<span class="nc" id="L65">                body.put(&quot;message&quot;, &quot;Incorrect format for field '&quot; + reference.getFieldName() + &quot;'&quot;);</span>
+            }
+        }
+<span class="nc" id="L68">        LOGGER.info(&quot;End&quot;);</span>
+<span class="nc" id="L69">        return new ResponseEntity&lt;&gt;(body, headers, status);</span>
+	}
+	
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public final ResponseEntity&lt;MyError&gt; handleUserNotFoundException(UserAlreadyExistsException ex, WebRequest request){
+<span class="nc" id="L74">		 LOGGER.info(&quot;Start&quot;);</span>
+<span class="nc" id="L75">		MyError errorDetails =  new MyError(ex.getMsg(),request.getDescription(false),new Date());</span>
+<span class="nc" id="L76">		return new ResponseEntity&lt;&gt;(errorDetails,HttpStatus.BAD_REQUEST);</span>
+		
+	}
+	
+	@ExceptionHandler(VerificationPendingException.class)
+	public final ResponseEntity&lt;MyError&gt; handleUserNotFoundException(VerificationPendingException ex, WebRequest request){
+<span class="nc" id="L82">		 LOGGER.info(&quot;Start&quot;);</span>
+<span class="nc" id="L83">		MyError errorDetails =  new MyError(ex.getMsg(),request.getDescription(false),new Date());</span>
+<span class="nc" id="L84">		return new ResponseEntity&lt;&gt;(errorDetails,HttpStatus.BAD_REQUEST);</span>
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AuthenticationserviceMockMVCTest (19 Dec, 2019 8:52:22 PM)</div></body></html>
